@@ -3,6 +3,7 @@ package studio.kio.ruater.api.route
 import java.io.Serializable
 
 /**
- * created by KIO on 2020/10/25
+ * created by KIO on 2020/10/27
  */
-object EmptyOutput : Serializable
+
+object Empty : Serializable

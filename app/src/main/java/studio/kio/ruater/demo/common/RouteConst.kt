@@ -1,7 +1,6 @@
 package studio.kio.ruater.demo.common
 
-import studio.kio.ruater.api.route.EmptyInput
-import studio.kio.ruater.api.route.EmptyOutput
+import studio.kio.ruater.api.route.Empty
 import studio.kio.ruater.api.route.Route
 
 /**
@@ -10,6 +9,6 @@ import studio.kio.ruater.api.route.Route
 
 object ListRoute : Route<Int, Int>()
 
-object DemoRoute : Route<User, EmptyOutput>()
+object DemoRoute : Route<User, Empty>()
 
-object EmptyRoute : Route<EmptyInput, EmptyOutput>()
+object EmptyRoute : Route<Empty, Empty>()

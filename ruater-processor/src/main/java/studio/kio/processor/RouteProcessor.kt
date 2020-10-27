@@ -48,9 +48,12 @@ class RouteProcessor : AbstractProcessor() {
             val routeType =
                 it.getAnnotation(annotationRoutePathClass)
 
-            val m = "map[${
-                routeType.toString().substring(45, routeType.toString().length - 1)
-            }] = $it::class"
+            val routeTypeStr = routeType.toString()
+            val equalIndex = routeTypeStr.indexOf('=')
+            val m =
+                "map[${
+                    routeTypeStr.substring(equalIndex + 1, routeTypeStr.length - 1).trimIndent()
+                }] = $it::class"
             println(routeType)
             loadToMapStatement.append(m).append("\n")
         }

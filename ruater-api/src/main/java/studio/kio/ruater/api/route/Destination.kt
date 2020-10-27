@@ -10,4 +10,4 @@ import kotlin.reflect.KClass
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 @Repeatable
-annotation class RoutePath(val value: KClass<out Route<*, *>>)
+annotation class Destination(val value: KClass<out Route<*, *>>)

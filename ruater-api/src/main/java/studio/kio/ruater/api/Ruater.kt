@@ -5,10 +5,10 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import studio.kio.ruater.api.exception.NoDestinationFoundException
 import studio.kio.ruater.api.gen.RouterMapping
 import studio.kio.ruater.api.middleware.RuaterConnection
-import studio.kio.ruater.api.route.EmptyInput
-import studio.kio.ruater.api.route.EmptyOutput
+import studio.kio.ruater.api.route.Empty
 import studio.kio.ruater.api.route.Route
 import java.io.Serializable
 
@@ -29,35 +29,41 @@ object Ruater {
         context: Context,
         route: Route<I, O>,
         parameter: I,
-        startModeFlag: Int = Intent.FLAG_ACTIVITY_NEW_TASK
+        startModeFlag: Int = 0
     ): RuaterConnection<O> {
 
         val connection = RuaterConnection<O>()
 
-        val intent = Intent(context, RouterMapping.getActivityClassWithRoute(route)?.java)
+        val destination = RouterMapping.getActivityClassWithRoute(route)
+        if (destination != null) {
 
-        intent.addFlags(startModeFlag)
+            val intent = Intent(context, destination.java)
+            intent.apply {
+                addFlags(startModeFlag)
+                if (I::class != Empty::class) {
+                    intent.putExtra(RUATER_KEY, parameter)
+                }
+            }
 
-        if (I::class != EmptyInput::class) {
-            intent.putExtra(RUATER_KEY, parameter)
-        }
+            if (O::class == Empty::class) {
+                context.startActivity(intent)
+            } else {
+                val jumper = connection.connectTo(context)
+                jumper.jumpTo(intent)
+            }
 
-        if (O::class == EmptyOutput::class) {
-            context.startActivity(intent)
         } else {
-            val jumper = connection.connectTo(context)
-            jumper.jumpTo(intent)
+            throw NoDestinationFoundException("No page found matching route $route")
         }
-
         return connection
     }
 
     inline fun <reified O : Serializable> navigateTo(
         context: Context,
-        route: Route<EmptyInput, O>,
-        startModeFlag: Int = Intent.FLAG_ACTIVITY_NEW_TASK
+        route: Route<Empty, O>,
+        startModeFlag: Int = 0
     ): RuaterConnection<O> {
-        return navigateTo(context, route, EmptyInput, startModeFlag)
+        return navigateTo(context, route, Empty, startModeFlag)
     }
 
     inline fun <reified T : Serializable> getParameter(
@@ -65,18 +71,18 @@ object Ruater {
         route: Route<T, out Serializable>
     ): T {
         Log.d("Ruater", route.toString())
-        if (T::class == EmptyInput::class) {
+        if (T::class == Empty::class) {
             throw IllegalArgumentException("Can't get parameter from an Route with input type <EmptyInput>")
         }
         return T::class.java.cast(intent.getSerializableExtra(RUATER_KEY))!!
     }
 
-    inline fun <reified T : Serializable> setReturn(
+    inline fun <reified T : Serializable> setResult(
         activity: Activity,
         route: Route<out Serializable, T>, data: T
     ) {
         Log.d("Ruater", route.toString())
-        if (T::class == EmptyOutput::class) {
+        if (T::class == Empty::class) {
             throw java.lang.IllegalArgumentException("Can't setReturn on an Route with output type <EmptyOutput>")
         }
         val i = Intent()

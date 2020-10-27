@@ -3,7 +3,12 @@ package studio.kio.ruater.api.middleware
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import studio.kio.ruater.api.Ruater
 import java.io.Serializable
 import java.lang.ref.WeakReference
@@ -45,7 +50,7 @@ class RuaterConnection<T : Serializable> {
     fun connectTo(context: Context): Jumper {
 
         if (this.contextReference != null) {
-            throw IllegalStateException("KRouterConnection Can connect only one time")
+            throw IllegalStateException("RuaterConnection Can connect only one time")
         }
 
         if (context !is FragmentActivity) {

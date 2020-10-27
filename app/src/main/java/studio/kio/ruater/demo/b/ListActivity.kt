@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import studio.kio.demo.R
 import studio.kio.ruater.api.Ruater
-import studio.kio.ruater.api.route.RoutePath
+import studio.kio.ruater.api.route.Destination
 import studio.kio.ruater.demo.common.ListRoute
 
-@RoutePath(ListRoute::class)
+@Destination(ListRoute::class)
 class ListActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -50,7 +50,7 @@ class ListActivity : AppCompatActivity() {
         val adapter = MyAdapter(data, Ruater.getParameter(intent, ListRoute))
 
         adapter.setOnItemClickListener { _, _, position, _ ->
-            Ruater.setReturn(this, ListRoute, position)
+            Ruater.setResult(this, ListRoute, position)
             finish()
         }
 
