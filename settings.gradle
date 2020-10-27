@@ -1,0 +1,4 @@
+include ':ruater-processor'
+include ':ruater-api'
+include ':app'
+rootProject.name = "RuaterApplication"

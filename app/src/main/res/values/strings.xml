@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RuaterApplication</string>
+    <string name="to_demo">To Demo</string>
+    <string name="to_list">To List</string>
+</resources>
