@@ -5,17 +5,18 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="PLATFORM" />
-        <option name="disableWrapperSourceDistributionNotification" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../Program Files/gradle-5.4.1" />
-        <option name="gradleJvm" value="1.8 (2)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/ruater-api" />
-            <option value="$PROJECT_DIR$/ruater-processor" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/module_a" />
+            <option value="$PROJECT_DIR$/module_b" />
+            <option value="$PROJECT_DIR$/routeur-api" />
+            <option value="$PROJECT_DIR$/routeur-mapping" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

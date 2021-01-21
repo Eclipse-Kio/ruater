@@ -1,4 +1,7 @@
-include ':ruater-processor'
-include ':ruater-api'
+include ':common'
+include ':routeur-mapping'
+include ':routeur-api'
+include ':module_b'
+include ':module_a'
 include ':app'
-rootProject.name = "RuaterApplication"
+rootProject.name = "Routeur Demo"
